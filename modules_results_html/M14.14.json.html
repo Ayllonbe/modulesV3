@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<!-- jQuery 3 -->
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js'></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script  type="text/javascript" src="../dist/js/d3.v4.min.js"></script>
+<script type="text/javascript" src="../dist/js/visualization.js"></script>
+<script type="text/javascript" src="../dist/js/motvis.js"></script>
+<script type="text/javascript" src="../dist/js/table.js"></script>
+<script type="text/javascript" src="../dist/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="../dist/js/gauge.js"></script>
+<script type="text/javascript" src="../dist/js/TreeColors.js"></script>
+<script type="text/javascript" src="../dist/js/barplot.js"></script>
+
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title text="GSAn"></title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/style.css">
+    <link rel="stylesheet" href="../dist/css/motvis.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md fixed-top" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">ModulesV3</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+	<div class="row content">
+<div class="col-xs-12 col-md-12"
+		<!-- Scrollable div with main content -->
+		<div class="row" >
+			<div class="col-xs-12 col-md-12" style="overflow: hidden">
+				<div class="pageClass" id="VisualizePage">
+					<h1>
+						Annotation results  <span style="font-size:14px;"><i>Powered by </i><a href="https://gsan.labri.fr">GSAn</a> </span>
+					</h1>
+					<div class="row">
+						<div id="gauge" class="col-xs-12 col-lg-3">
+						<H2>Charts</H2 >
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center">Percentage of genes with annotations</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6">
+									<div id="recoverGenes"></div>
+								</div>
+								<div class="col-xs-12 rg">
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center">Percentage of genes annotated with GSAn</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6" style="vertical-align:middle;">
+									<div id="recoverAnnotGenes"></div>
+								</div>
+								<div class="col-xs-12 rag">
+
+								</div>
+							</div>
+
+							<!--	<div class="row">
+			<div class="col-sm-6">
+				<H4 style="text-align:center;height:100px ;display: table-cell; vertical-align: middle;">Percentage term reduced</H4>
+			</div>
+			<div class="col-sm-6">
+					<div id="reduce" style="width:100%;height:100px; display: table-cell;vertical-align: middle; "></div>
+		</div>
+	</div>-->
+
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center;">Gene set similarity
+										(GS&sup2;)</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6">
+									<div id="gs2"></div>
+								</div>
+								<div class="col-xs-12 gs2">
+
+								</div>
+							</div>
+
+						</div>
+						<div id="barplot" class="col-xs-12 col-sm-12 col-md-12 col-lg-9" style="vertical-align:middle;">
+							<H2>Synthetic annotation</H2>
+							<br>
+							<br>
+						</div>
+					</div>
+
+					<!--	<div class="table-toogle">
+				<table class="table table-striped">
+					<tr>
+						<td>Table</td>
+						<td>Bubble Chart (BETA)</td>
+					</tr>
+				</table>
+
+			</div>-->
+					<div class="row">
+					<div class="col-xs-6 w-50 p-3" style="background-color: #555;margin:0px;padding-right: 0px;padding-left: 0px;"><button class="tablink"
+							onclick="openCity('tableResult', this, '#999999')"
+							id="defaultOpen">Table</button></div>
+						<div class="col-xs-6 w-50 p-3" style="background-color: #555;margin:0px;padding-right: 0px;padding-left: 0px;">
+						<button class="tablink"
+							onclick="openCity('tableVisu', this, '#999999')">Combined tree visualization</button>
+							</div>
+					</div>
+<div class="row">
+<div class="col-xs-12 w-100 p-3" style="padding-right: 10px;">
+					<div class="table-container w-100 p-3" id="tableResult">
+
+						<script>
+							$(document).ready(
+									function() {
+										var table = $('#tableRep').DataTable();
+										table.order([ 5, 'desc' ],
+												[ 3, 'desc' ]).draw();
+									});
+						</script>
+</div>
+</div>
+		<div class="col-xs-12 w-100 p-3" style="padding-right: 0px;padding-top: 15px;" >
+
+
+					<div class="table-container w-100 p-3" id="tableVisu" style="display: inline-block;height:800px;">
+					<!--	<div id="boxes">
+							<label>
+								<input type="checkbox" class="selection" value=1  name="ids" checked="checked"/> All</label>
+							<label>
+								<input type="checkbox" class="selection" value=0 name="ids" /> Synthetic</label>
+        	</div>-->
+						<div class="w-100 p-3" id="motvis"  style="display: inline-block;">
+
+						<div  class="w-40 p-3" id="treeHIDDEN">
+							<div id="tree"></div>
+						</div>
+						<div  class="w-60 p-3" class="w-100 p-3" id="circular">
+						<div id="tooltip"></div>
+					<!--	<form id="svgform" method="post" action="download.pl">
+						 <input type="hidden" id="output_format" name="output_format" value="">
+						 <input type="hidden" id="data" name="data" value="">
+						</form>
+						<button class="btn btn-success" id="save_as_svg" value="">
+									Save as SVG</button>
+								<button class="btn btn-success" id="save_as_pdf" value="">
+									Save as PDF</button>
+								<button class="btn btn-success" id="save_as_png" value="">
+						Save as High-Res PNG</button>-->
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+			</div>
+			</div>
+		</div>
+<br><br><br><br><br><br><br>
+
+
+
+</div>
+
+		<script inline="javascript">
+			var jobj;
+			var circulardiv = document.getElementById("circular"),
+			width = circulardiv.clientWidth,
+			height = circulardiv.clientHeight;
+var dataJSOn={"msg":0,"scp":["GO:0090304","GO:0065003","GO:0007165","GO:0006464","GO:0034613"],"ModuleName":"TBD","GS2":0.3818427562198033,"tree":{"children":[{"children":[{"children":[{"size":1,"id":"POLB"},{"size":1,"id":"PRNP"},{"size":1,"id":"NUB1"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SNRK"},{"size":1,"id":"RNF114"},{"size":1,"id":"KANSL1"},{"size":1,"id":"AKTIP"},{"size":1,"id":"STK26"},{"size":1,"id":"NSL1"}],"id":"GO:0006464"}],"id":"GO:0019538"},{"children":[{"children":[{"children":[{"size":1,"id":"PRNP"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SNX2"},{"size":1,"id":"RAB37"},{"size":1,"id":"AKTIP"},{"size":1,"id":"SRSF1"},{"size":1,"id":"CDC40"}],"id":"GO:0046907"},{"children":[{"size":1,"id":"PRNP"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SNX2"},{"size":1,"id":"RAB37"},{"size":1,"id":"AKTIP"},{"size":1,"id":"SIDT2"}],"id":"GO:0015031"},{"size":1,"id":"G3BP2"}],"id":"GO:0051234"},{"children":[{"size":1,"id":"PRNP"},{"size":1,"id":"EFR3A"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"MAPRE2"}],"id":"GO:0034613"}],"id":"GO:0051179"},{"children":[{"size":1,"id":"PRNP"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"DEK"},{"size":1,"id":"PUM1"},{"size":1,"id":"POLB"},{"size":1,"id":"RO60"},{"size":1,"id":"HNRNPM"},{"size":1,"id":"SNRK"},{"size":1,"id":"RAB37"},{"size":1,"id":"STK26"},{"size":1,"id":"G3BP2"},{"size":1,"id":"WDFY1"},{"size":1,"id":"MAPRE2"}],"id":"GO:0007165"},{"children":[{"children":[{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SNX2"},{"size":1,"id":"STK26"},{"size":1,"id":"SIDT2"}],"id":"GO:0032989"},{"children":[{"size":1,"id":"PRNP"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SNX2"},{"size":1,"id":"MAT2A"},{"size":1,"id":"SRSF1"},{"size":1,"id":"G3BP2"}],"id":"GO:0065003"},{"children":[{"size":1,"id":"POLB"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"STK26"},{"size":1,"id":"DEK"}],"id":"GO:0033554"},{"children":[{"children":[{"size":1,"id":"POLB"},{"size":1,"id":"RO60"},{"size":1,"id":"HNRNPM"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"SRSF1"},{"size":1,"id":"DEK"},{"size":1,"id":"PUM1"},{"size":1,"id":"CDC40"},{"size":1,"id":"PNRC2"},{"size":1,"id":"SIDT2"}],"id":"GO:0090304"},{"children":[{"size":1,"id":"POLB"},{"size":1,"id":"RO60"},{"size":1,"id":"HSP90AA1"},{"size":1,"id":"DEK"}],"id":"GO:0034654"}],"id":"GO:0006139"},{"size":1,"id":"NSL1"},{"size":1,"id":"EFR3A"},{"size":1,"id":"NUB1"},{"size":1,"id":"RNF114"},{"size":1,"id":"AKTIP"},{"size":1,"id":"SNRK"},{"size":1,"id":"KANSL1"},{"size":1,"id":"RAB37"},{"size":1,"id":"WDFY1"},{"size":1,"id":"MAPRE2"}],"id":"GO:0009987"},{"size":1,"id":"DNAJA2"}],"id":"GO:0008150"},"Reduce":0.03,"ModuleID":"M14.14","boolean":true,"AnnotatedGeneSet":["SRSF1","NSL1","POLB","RO60","EFR3A","NUB1","SNX2","RNF114","MAT2A","G3BP2","PRNP","HSP90AA1","AKTIP","DEK","PUM1","CDC40","PNRC2","HNRNPM","SNRK","KANSL1","RAB37","STK26","DNAJA2","WDFY1","MAPRE2","SIDT2"],"terms":{"GO:0090304":{"parent":["GO:0006139"],"geneSet":["POLB","RO60","HNRNPM","HSP90AA1","SRSF1","DEK","PUM1","CDC40","PNRC2","SIDT2"],"children":[],"name":"nucleic acid metabolic process","IC":112.39856833655074,"opacity":1.0,"onto":"BP"},"GO:0019538":{"parent":[],"geneSet":[],"children":[],"name":"protein metabolic process","IC":45.4499176967055,"opacity":1.0,"onto":"BP"},"GO:0008150":{"parent":"GO","geneSet":["DNAJA2"],"children":["GO:0009987","GO:0051179"],"name":"biological_process","IC":0.0,"opacity":1.0,"onto":"BP"},"GO:0065003":{"parent":[],"geneSet":["PRNP","HSP90AA1","SNX2","MAT2A","SRSF1","G3BP2"],"children":[],"name":"protein-containing complex assembly","IC":36.453460222660375,"opacity":1.0,"onto":"BP"},"GO:0007165":{"parent":["GO:0009987"],"geneSet":["PRNP","HSP90AA1","DEK","PUM1","POLB","RO60","HNRNPM","SNRK","RAB37","STK26","G3BP2","WDFY1","MAPRE2"],"children":[],"name":"signal transduction","IC":19.397487705886434,"opacity":1.0,"onto":"BP"},"GO:0046907":{"parent":[],"geneSet":["PRNP","HSP90AA1","SNX2","RAB37","AKTIP","SRSF1","CDC40"],"children":[],"name":"intracellular transport","IC":28.973465015625457,"opacity":1.0,"onto":"BP"},"GO:0015031":{"parent":[],"geneSet":["PRNP","HSP90AA1","SNX2","RAB37","AKTIP","SIDT2"],"children":[],"name":"protein transport","IC":53.520786952638524,"opacity":1.0,"onto":"BP"},"GO:0006464":{"parent":[],"geneSet":["POLB","PRNP","NUB1","HSP90AA1","SNRK","RNF114","KANSL1","AKTIP","STK26","NSL1"],"children":[],"name":"cellular protein modification process","IC":148.73176668547606,"opacity":1.0,"onto":"BP"},"GO":{"geneSet":[],"children":["GO:0008150"],"name":"Gene Ontology","IC":0,"opacity":1.0},"GO:0006139":{"parent":[],"geneSet":[],"children":["GO:0034654","GO:0090304"],"name":"nucleobase-containing compound metabolic process","IC":97.35177384176824,"opacity":1.0,"onto":"BP"},"GO:0009987":{"parent":["GO:0008150"],"geneSet":["NSL1","EFR3A","NUB1","RNF114","AKTIP","SNRK","KANSL1","RAB37","WDFY1","MAPRE2"],"children":["GO:0007165"],"name":"cellular process","IC":3.3672958299864746,"opacity":1.0,"onto":"BP"},"GO:0032989":{"parent":[],"geneSet":["HSP90AA1","SNX2","STK26","SIDT2"],"children":[],"name":"cellular component morphogenesis","IC":42.5334353276748,"opacity":1.0,"onto":"BP"},"GO:0051234":{"parent":["GO:0051179"],"geneSet":["G3BP2"],"children":[],"name":"establishment of localization","IC":5.564520407322695,"opacity":1.0,"onto":"BP"},"GO:0051179":{"parent":["GO:0008150"],"geneSet":[],"children":["GO:0051234"],"name":"localization","IC":3.3672958299864746,"opacity":1.0,"onto":"BP"},"GO:0034654":{"parent":["GO:0006139"],"geneSet":["POLB","RO60","HSP90AA1","DEK"],"children":[],"name":"nucleobase-containing compound biosynthetic process","IC":320.43067900108514,"opacity":1.0,"onto":"BP"},"GO:0033554":{"parent":[],"geneSet":["POLB","HSP90AA1","STK26","DEK"],"children":[],"name":"cellular response to stress","IC":25.453490774131986,"opacity":1.0,"onto":"BP"},"GO:0034613":{"parent":[],"geneSet":["PRNP","EFR3A","HSP90AA1","MAPRE2"],"children":[],"name":"cellular protein localization","IC":26.517356005594962,"opacity":1.0,"onto":"BP"}},"GeneSet":["SRSF1","LPP","NSL1","POLB","RO60","EFR3A","NUB1","SNX2","RNF114","MAT2A","G3BP2","PRNP","HSP90AA1","AKTIP","DEK","PUM1","CDC40","TMEM131","PNRC2","HNRNPM","SNRK","KANSL1","RAB37","STK26","DNAJA2","WDFY1","MAPRE2","SIDT2"],"representatives":["GO:0090304","GO:0032989","GO:0065003","GO:0007165","GO:0046907","GO:0015031","GO:0006464","GO:0034654","GO:0033554","GO:0034613"]}
+
+draw(dataJSOn);
+
+function draw(data) {
+
+
+			visual(data);
+     	document.getElementById("defaultOpen").click();
+}
+
+			$(".btnJSON").click(function() {
+				var a = document.createElement("a");
+				document.body.appendChild(a);
+				a.style = "display: none";
+				var json = JSON.stringify(jobj), blob = new Blob([ json ], {
+					type : "application/json"
+				}), url = window.URL.createObjectURL(blob);
+				a.href = url;
+				a.download = "GSAn_result.json";
+				a.click();
+				window.URL.revokeObjectURL(url);
+			});
+
+			$(".btnCsv").click(function() {
+				var data, filename, link;
+				var csv = convertArrayOfObjectsToCSV(jobj);
+				if (csv == null)
+					return;
+
+				filename = 'GSAn_result.csv';
+
+				if (!csv.match(/^data:text\/csv/i)) {
+					csv = 'data:text/csv;charset=utf-8,' + csv;
+				}
+				data = encodeURI(csv);
+
+				link = document.createElement('a');
+				document.body.appendChild(link);
+				link.style = "display: none";
+				link.setAttribute('href', data);
+				link.setAttribute('download', filename);
+				link.click();
+			});
+
+      $("#save_as_svg").click(function() { submit_download_form("svg"); });
+      $("#save_as_pdf").click(function() { submit_download_form("pdf"); });
+      $("#save_as_png").click(function() { submit_download_form("png"); });
+
+      function submit_download_form(output_format)
+      {
+      	// Get the d3js SVG element
+      	var tmp = document.getElementById("ex1");
+      	var svg = tmp.getElementsByTagName("svg")[0];
+      	// Extract the data as SVG text string
+      	var svg_xml = (new XMLSerializer).serializeToString(svg);
+      	// Submit the <FORM> to the server.
+      	// The result will be an attachment file to download.
+      	var form = document.getElementById("svgform");
+      	form['output_format'].value = output_format;
+      	form['data'].value = svg_xml ;
+      	form.submit();
+      }
+			function convertArrayOfObjectsToCSV(data) {
+				var result, ctr, keys, columnDelimiter, lineDelimiter;
+
+				var genes = data.GeneSet;
+				var representative = data.representatives;
+				var scp = data.scp;
+				var dic = data.terms;
+
+				var h = ["GOID","Name","Ontology","IC","Covered_genes","Synthetic", "Genes" ], r = [];
+				representative.forEach(function(x) {
+					//console.log(dic[x]);
+					var cells = {};
+					cells[h[0]] = x;
+					cells[h[1]] = '"' + dic[x].name + '"';
+					cells[h[2]] = dic[x].onto;
+					cells[h[3]] = Math.floor(dic[x].IC * 100) / 100;
+					cells[h[4]] = dic[x].geneSet.length;
+					if (scp.includes(x)) {
+						cells[h[5]] = true;
+					} else {
+						cells[h[5]] = false;
+					}
+
+					cells[h[6]] = dic[x].geneSet.join(";");
+					r.push(cells);
+				});
+
+				columnDelimiter = ',';
+				lineDelimiter = '\n';
+
+				keys = Object.keys(r[0]);
+
+				result = '';
+				result += keys.join(columnDelimiter);
+				result += lineDelimiter;
+
+				r.forEach(function(item) {
+					ctr = 0;
+					keys.forEach(function(key) {
+						if (ctr > 0)
+							result += columnDelimiter;
+
+						result += item[key];
+						ctr++;
+					});
+					result += lineDelimiter;
+				});
+
+				return result;
+			}
+
+
+			function openCity(chooseCont, elmnt, color) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("table-container");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablink");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].style.backgroundColor = "";
+				}
+				document.getElementById(chooseCont).style.display = "block";
+				elmnt.style.backgroundColor = color;
+
+			}
+			// Get the element with id="defaultOpen" and click on it
+
+
+		</script>
+	</div>
+
+</body>
+</html>

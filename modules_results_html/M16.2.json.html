@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<!-- jQuery 3 -->
+
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.0.1/spin.min.js'></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script  type="text/javascript" src="../dist/js/d3.v4.min.js"></script>
+<script type="text/javascript" src="../dist/js/visualization.js"></script>
+<script type="text/javascript" src="../dist/js/motvis.js"></script>
+<script type="text/javascript" src="../dist/js/table.js"></script>
+<script type="text/javascript" src="../dist/js/FileSaver.min.js"></script>
+<script type="text/javascript" src="../dist/js/gauge.js"></script>
+<script type="text/javascript" src="../dist/js/TreeColors.js"></script>
+<script type="text/javascript" src="../dist/js/barplot.js"></script>
+
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title text="GSAn"></title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="../dist/css/style.css">
+    <link rel="stylesheet" href="../dist/css/motvis.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-md fixed-top" style="background-color: #e3f2fd;">
+  <a class="navbar-brand" href="#">ModulesV3</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="../index.html">Home <span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+	<div class="row content">
+<div class="col-xs-12 col-md-12"
+		<!-- Scrollable div with main content -->
+		<div class="row" >
+			<div class="col-xs-12 col-md-12" style="overflow: hidden">
+				<div class="pageClass" id="VisualizePage">
+					<h1>
+						Annotation results  <span style="font-size:14px;"><i>Powered by </i><a href="https://gsan.labri.fr">GSAn</a> </span>
+					</h1>
+					<div class="row">
+						<div id="gauge" class="col-xs-12 col-lg-3">
+						<H2>Charts</H2 >
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center">Percentage of genes with annotations</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6">
+									<div id="recoverGenes"></div>
+								</div>
+								<div class="col-xs-12 rg">
+
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center">Percentage of genes annotated with GSAn</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6" style="vertical-align:middle;">
+									<div id="recoverAnnotGenes"></div>
+								</div>
+								<div class="col-xs-12 rag">
+
+								</div>
+							</div>
+
+							<!--	<div class="row">
+			<div class="col-sm-6">
+				<H4 style="text-align:center;height:100px ;display: table-cell; vertical-align: middle;">Percentage term reduced</H4>
+			</div>
+			<div class="col-sm-6">
+					<div id="reduce" style="width:100%;height:100px; display: table-cell;vertical-align: middle; "></div>
+		</div>
+	</div>-->
+
+							<div class="row">
+								<div class="col-xs-6">
+									<H4 style="text-align: center;">Gene set similarity
+										(GS&sup2;)</H4>
+								</div>
+								<div class="col-xs-4 col-lg-6">
+									<div id="gs2"></div>
+								</div>
+								<div class="col-xs-12 gs2">
+
+								</div>
+							</div>
+
+						</div>
+						<div id="barplot" class="col-xs-12 col-sm-12 col-md-12 col-lg-9" style="vertical-align:middle;">
+							<H2>Synthetic annotation</H2>
+							<br>
+							<br>
+						</div>
+					</div>
+
+					<!--	<div class="table-toogle">
+				<table class="table table-striped">
+					<tr>
+						<td>Table</td>
+						<td>Bubble Chart (BETA)</td>
+					</tr>
+				</table>
+
+			</div>-->
+					<div class="row">
+					<div class="col-xs-6 w-50 p-3" style="background-color: #555;margin:0px;padding-right: 0px;padding-left: 0px;"><button class="tablink"
+							onclick="openCity('tableResult', this, '#999999')"
+							id="defaultOpen">Table</button></div>
+						<div class="col-xs-6 w-50 p-3" style="background-color: #555;margin:0px;padding-right: 0px;padding-left: 0px;">
+						<button class="tablink"
+							onclick="openCity('tableVisu', this, '#999999')">Combined tree visualization</button>
+							</div>
+					</div>
+<div class="row">
+<div class="col-xs-12 w-100 p-3" style="padding-right: 10px;">
+					<div class="table-container w-100 p-3" id="tableResult">
+
+						<script>
+							$(document).ready(
+									function() {
+										var table = $('#tableRep').DataTable();
+										table.order([ 5, 'desc' ],
+												[ 3, 'desc' ]).draw();
+									});
+						</script>
+</div>
+</div>
+		<div class="col-xs-12 w-100 p-3" style="padding-right: 0px;padding-top: 15px;" >
+
+
+					<div class="table-container w-100 p-3" id="tableVisu" style="display: inline-block;height:800px;">
+					<!--	<div id="boxes">
+							<label>
+								<input type="checkbox" class="selection" value=1  name="ids" checked="checked"/> All</label>
+							<label>
+								<input type="checkbox" class="selection" value=0 name="ids" /> Synthetic</label>
+        	</div>-->
+						<div class="w-100 p-3" id="motvis"  style="display: inline-block;">
+
+						<div  class="w-40 p-3" id="treeHIDDEN">
+							<div id="tree"></div>
+						</div>
+						<div  class="w-60 p-3" class="w-100 p-3" id="circular">
+						<div id="tooltip"></div>
+					<!--	<form id="svgform" method="post" action="download.pl">
+						 <input type="hidden" id="output_format" name="output_format" value="">
+						 <input type="hidden" id="data" name="data" value="">
+						</form>
+						<button class="btn btn-success" id="save_as_svg" value="">
+									Save as SVG</button>
+								<button class="btn btn-success" id="save_as_pdf" value="">
+									Save as PDF</button>
+								<button class="btn btn-success" id="save_as_png" value="">
+						Save as High-Res PNG</button>-->
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+			</div>
+			</div>
+		</div>
+<br><br><br><br><br><br><br>
+
+
+
+</div>
+
+		<script inline="javascript">
+			var jobj;
+			var circulardiv = document.getElementById("circular"),
+			width = circulardiv.clientWidth,
+			height = circulardiv.clientHeight;
+var dataJSOn={"msg":0,"scp":["GO:0006260","GO:0006464","GO:0006366","GO:0044255","GO:0065003","GO:0007165","GO:0046907","GO:0034220","GO:0043312","GO:0010243","GO:0034613","GO:0009165","GO:0006281"],"ModuleName":"TBD","GS2":0.38447359421777827,"tree":{"children":[{"children":[{"children":[{"children":[{"size":1,"id":"WASHC4"},{"size":1,"id":"AP5Z1"},{"size":1,"id":"TBC1D3B"},{"size":1,"id":"DCTN1"},{"size":1,"id":"SUPT6H"},{"size":1,"id":"TBC1D3G"},{"size":1,"id":"LAPTM4B"},{"size":1,"id":"RABGEF1"},{"size":1,"id":"MVB12B"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"LGALS9"},{"size":1,"id":"KPNA2"},{"size":1,"id":"SNX8"},{"size":1,"id":"ANKRD50"},{"size":1,"id":"RAB11FIP4"},{"size":1,"id":"SREBF1"},{"size":1,"id":"DYNC1LI1"},{"size":1,"id":"TRAPPC6B"},{"size":1,"id":"TAOK2"},{"size":1,"id":"TBC1D25"},{"size":1,"id":"MAP6D1"},{"size":1,"id":"SPIRE1"},{"size":1,"id":"PIK3C3"}],"id":"GO:0046907"},{"children":[{"children":[{"size":1,"id":"KCNK6"},{"size":1,"id":"CLIC4"},{"size":1,"id":"SLC25A29"},{"size":1,"id":"TTYH2"},{"size":1,"id":"SLC6A12"},{"size":1,"id":"FLNA"},{"size":1,"id":"SLC39A8"},{"size":1,"id":"SLC30A1"},{"size":1,"id":"SFXN5"},{"size":1,"id":"SLC25A13"}],"id":"GO:0034220"},{"children":[{"children":[{"size":1,"id":"SMAD2"},{"size":1,"id":"SREBF1"},{"size":1,"id":"DPH3"},{"size":1,"id":"GOLPH3L"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"LGALS9"}],"id":"GO:0009306"},{"size":1,"id":"WASHC4"},{"size":1,"id":"C16orf70"},{"size":1,"id":"AP5Z1"},{"size":1,"id":"TBC1D3B"},{"size":1,"id":"ITSN1"},{"size":1,"id":"TBC1D3G"},{"size":1,"id":"RABGEF1"},{"size":1,"id":"MVB12B"},{"size":1,"id":"TAOK2"},{"size":1,"id":"TBC1D25"},{"size":1,"id":"SPIRE1"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"KPNA2"},{"size":1,"id":"SNX8"},{"size":1,"id":"ANKRD50"}],"id":"GO:0015031"},{"children":[{"size":1,"id":"GALNS"},{"size":1,"id":"DYNC1LI1"},{"size":1,"id":"DOK3"},{"size":1,"id":"ROCK1"},{"size":1,"id":"ITSN1"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"LGALS9"},{"size":1,"id":"AMPD3"}],"id":"GO:0006887"},{"size":1,"id":"DCTN1"},{"size":1,"id":"SUPT6H"},{"size":1,"id":"LAPTM4B"},{"size":1,"id":"PPFIA1"},{"size":1,"id":"RAB11FIP4"},{"size":1,"id":"SOAT1"},{"size":1,"id":"SLCO3A1"},{"size":1,"id":"TRAPPC6B"},{"size":1,"id":"MAP6D1"},{"size":1,"id":"TJP2"}],"id":"GO:0006810"},{"size":1,"id":"PSRC1"},{"size":1,"id":"UBE2B"}],"id":"GO:0051234"},{"children":[{"size":1,"id":"SREBF1"},{"size":1,"id":"C16orf70"},{"size":1,"id":"ROCK1"},{"size":1,"id":"ITSN1"},{"size":1,"id":"GOLPH3L"},{"size":1,"id":"LILRB4"},{"size":1,"id":"RABGEF1"},{"size":1,"id":"STK11"},{"size":1,"id":"TAOK2"},{"size":1,"id":"PPFIA1"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"KPNA2"}],"id":"GO:0034613"},{"size":1,"id":"CEP164"}],"id":"GO:0051179"},{"children":[{"children":[{"children":[{"size":1,"id":"SREBF1"},{"size":1,"id":"SOAT1"},{"size":1,"id":"ABHD4"},{"size":1,"id":"ABHD2"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"PIP4K2C"},{"size":1,"id":"SERINC3"},{"size":1,"id":"SIRT2"},{"size":1,"id":"CES1"}],"id":"GO:0044255"},{"size":1,"id":"NFYB"},{"size":1,"id":"NCEH1"},{"size":1,"id":"SIN3B"},{"size":1,"id":"RGL1"}],"id":"GO:0006629"},{"children":[{"children":[{"size":1,"id":"KAT5"},{"size":1,"id":"RRM2B"},{"size":1,"id":"NBN"},{"size":1,"id":"SPHAR"},{"size":1,"id":"TOP1"},{"size":1,"id":"POLE"}],"id":"GO:0006260"},{"children":[{"children":[{"children":[{"size":1,"id":"SMAD2"},{"size":1,"id":"USP25"},{"size":1,"id":"AGTPBP1"},{"size":1,"id":"UBE2B"},{"size":1,"id":"RNPEPL1"},{"size":1,"id":"ROCK1"},{"size":1,"id":"SIRT2"},{"size":1,"id":"RNF146"},{"size":1,"id":"KAT5"},{"size":1,"id":"ADAM15"},{"size":1,"id":"MVB12B"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"NUDT16"},{"size":1,"id":"CES1"}],"id":"GO:0006508"},{"children":[{"size":1,"id":"ZNF230"},{"size":1,"id":"ROCK1"},{"size":1,"id":"RLF"},{"size":1,"id":"SAMSN1"},{"size":1,"id":"SUPT6H"},{"size":1,"id":"STK11"},{"size":1,"id":"KAT5"},{"size":1,"id":"SIN3B"},{"size":1,"id":"RPS6KC1"},{"size":1,"id":"DPH3"},{"size":1,"id":"PDGFC"},{"size":1,"id":"STK38L"},{"size":1,"id":"MAPK1"},{"size":1,"id":"RICTOR"},{"size":1,"id":"NBN"},{"size":1,"id":"LGALS9"},{"size":1,"id":"EPHB4"},{"size":1,"id":"SMAD2"},{"size":1,"id":"SREBF1"},{"size":1,"id":"USP25"},{"size":1,"id":"AGTPBP1"},{"size":1,"id":"UBE2B"},{"size":1,"id":"GLYCTK"},{"size":1,"id":"DAPK3"},{"size":1,"id":"MSL2"},{"size":1,"id":"ARNT"},{"size":1,"id":"FRS3"},{"size":1,"id":"SIRT2"},{"size":1,"id":"RNF146"},{"size":1,"id":"PTPRE"},{"size":1,"id":"EXT2"},{"size":1,"id":"NCEH1"},{"size":1,"id":"ARTN"},{"size":1,"id":"TAOK2"},{"size":1,"id":"ASB6"},{"size":1,"id":"MAP6D1"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"TOP1"},{"size":1,"id":"CDK14"},{"size":1,"id":"RNF141"}],"id":"GO:0006464"},{"size":1,"id":"LAPTM4B"},{"size":1,"id":"TNFRSF8"},{"size":1,"id":"SOAT1"},{"size":1,"id":"FLNA"},{"size":1,"id":"PCIF1"}],"id":"GO:0019538"},{"children":[{"size":1,"id":"LAPTM4B"},{"size":1,"id":"USP25"},{"size":1,"id":"KAT5"},{"size":1,"id":"UBE2B"},{"size":1,"id":"FLNA"},{"size":1,"id":"SIRT2"}],"id":"GO:0030163"},{"size":1,"id":"HNMT"},{"size":1,"id":"TK2"},{"size":1,"id":"AMPD3"},{"size":1,"id":"BTD"},{"size":1,"id":"SLC25A13"},{"size":1,"id":"ABHD4"},{"size":1,"id":"PAPSS2"},{"size":1,"id":"PCBD1"},{"size":1,"id":"GALNS"},{"size":1,"id":"ADI1"},{"size":1,"id":"SERINC3"},{"size":1,"id":"TJP2"}],"id":"GO:1901564"},{"children":[{"size":1,"id":"RNF146"},{"size":1,"id":"USP25"},{"size":1,"id":"KAT5"},{"size":1,"id":"UBE2B"},{"size":1,"id":"MVB12B"},{"size":1,"id":"SIRT2"}],"id":"GO:0006511"},{"size":1,"id":"TXNL4B"},{"size":1,"id":"PIP4K2C"},{"size":1,"id":"ZNF446"},{"size":1,"id":"KPNA2"},{"size":1,"id":"SAP30BP"},{"size":1,"id":"ZNF282"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"ABHD2"},{"size":1,"id":"ZMAT5"},{"size":1,"id":"ZNF785"},{"size":1,"id":"PHF12"},{"size":1,"id":"SNAI3"},{"size":1,"id":"NFKB2"},{"size":1,"id":"AGO3"},{"size":1,"id":"SPIRE1"},{"size":1,"id":"RGL1"},{"size":1,"id":"CEP164"},{"size":1,"id":"MED15"},{"size":1,"id":"GYS1"},{"size":1,"id":"ARHGEF11"},{"size":1,"id":"KLF11"},{"size":1,"id":"PHF20L1"},{"size":1,"id":"PSRC1"},{"size":1,"id":"AP5Z1"},{"size":1,"id":"SAP18"},{"size":1,"id":"POLR2J"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"ZNF580"},{"size":1,"id":"NFYB"},{"size":1,"id":"SWT1"},{"size":1,"id":"LILRB4"},{"size":1,"id":"BNIPL"}],"id":"GO:0071704"},{"size":1,"id":"TBC1D25"},{"size":1,"id":"SLC25A16"}],"id":"GO:0008152"},{"children":[{"size":1,"id":"SREBF1"},{"size":1,"id":"KLF11"},{"size":1,"id":"USP25"},{"size":1,"id":"RRM2B"},{"size":1,"id":"ROCK1"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"PDGFC"},{"size":1,"id":"MAPK1"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"HNMT"},{"size":1,"id":"SIRT2"}],"id":"GO:0010243"},{"children":[{"children":[{"children":[{"size":1,"id":"ITSN1"},{"size":1,"id":"STK11"},{"size":1,"id":"KAT5"},{"size":1,"id":"PPFIA1"},{"size":1,"id":"TNFRSF8"},{"size":1,"id":"NBN"},{"size":1,"id":"LGALS9"},{"size":1,"id":"PIP4K2C"},{"size":1,"id":"KPNA2"},{"size":1,"id":"INSL3"},{"size":1,"id":"EPHB4"},{"size":1,"id":"ARHGEF11"},{"size":1,"id":"SREBF1"},{"size":1,"id":"STARD8"},{"size":1,"id":"DAPK3"},{"size":1,"id":"ARNT"},{"size":1,"id":"FRS3"},{"size":1,"id":"SIRT2"},{"size":1,"id":"DOK3"},{"size":1,"id":"ADAM15"},{"size":1,"id":"RRM2B"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"CES1"},{"size":1,"id":"ROCK1"},{"size":1,"id":"DCTN1"},{"size":1,"id":"ABHD2"},{"size":1,"id":"RLF"},{"size":1,"id":"RPS6KC1"},{"size":1,"id":"PDGFC"},{"size":1,"id":"MVB12B"},{"size":1,"id":"STK38L"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"RICTOR"},{"size":1,"id":"POLR2J"},{"size":1,"id":"SMAD2"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"UBE2B"},{"size":1,"id":"LILRB4"},{"size":1,"id":"NFKB2"},{"size":1,"id":"RNF146"},{"size":1,"id":"PTPRE"},{"size":1,"id":"EXT2"},{"size":1,"id":"NCEH1"},{"size":1,"id":"AGO3"},{"size":1,"id":"ARTN"},{"size":1,"id":"TRIP6"},{"size":1,"id":"TAOK2"},{"size":1,"id":"ASB6"},{"size":1,"id":"RGL1"},{"size":1,"id":"SERINC3"},{"size":1,"id":"CDK14"},{"size":1,"id":"TJP2"}],"id":"GO:0007165"},{"children":[{"size":1,"id":"SMAD2"},{"size":1,"id":"KLF11"},{"size":1,"id":"TNFRSF8"},{"size":1,"id":"ARNT"},{"size":1,"id":"LGALS9"},{"size":1,"id":"SIRT2"},{"size":1,"id":"NFKB2"}],"id":"GO:0006355"},{"size":1,"id":"DYNC1LI1"},{"size":1,"id":"DPH3"},{"size":1,"id":"SPIRE1"}],"id":"GO:0050794"},{"children":[{"size":1,"id":"STK11"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"PDGFC"},{"size":1,"id":"TAOK2"},{"size":1,"id":"MAPK1"},{"size":1,"id":"RICTOR"}],"id":"GO:0032147"},{"size":1,"id":"KCNK6"},{"size":1,"id":"NUDT16"},{"size":1,"id":"TOP1"}],"id":"GO:0050789"},{"children":[{"children":[{"size":1,"id":"SMAD2"},{"size":1,"id":"DCTN1"},{"size":1,"id":"SIRT2"},{"size":1,"id":"PSRC1"},{"size":1,"id":"KAT5"},{"size":1,"id":"SOAT1"},{"size":1,"id":"AGO3"},{"size":1,"id":"TRAPPC6B"},{"size":1,"id":"PDGFC"},{"size":1,"id":"PCBD1"},{"size":1,"id":"RICTOR"},{"size":1,"id":"LUC7L2"}],"id":"GO:0065003"},{"children":[{"children":[{"size":1,"id":"SREBF1"},{"size":1,"id":"KLF11"},{"size":1,"id":"NFYB"},{"size":1,"id":"DAPK3"},{"size":1,"id":"SIRT2"},{"size":1,"id":"KAT5"},{"size":1,"id":"ADAM15"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"PDGFC"},{"size":1,"id":"MAPK1"},{"size":1,"id":"LGALS9"},{"size":1,"id":"CES1"}],"id":"GO:0071310"},{"children":[{"children":[{"size":1,"id":"KAT5"},{"size":1,"id":"UBE2B"},{"size":1,"id":"RRM2B"},{"size":1,"id":"AP5Z1"},{"size":1,"id":"CEP164"},{"size":1,"id":"SPIRE1"},{"size":1,"id":"NBN"},{"size":1,"id":"NUDT16"},{"size":1,"id":"POLE"},{"size":1,"id":"POLR2J"}],"id":"GO:0006281"},{"size":1,"id":"STK11"},{"size":1,"id":"TAOK2"},{"size":1,"id":"MAPK1"}],"id":"GO:0006974"},{"size":1,"id":"CLIC4"},{"size":1,"id":"DCTN1"},{"size":1,"id":"TNFRSF8"},{"size":1,"id":"USP25"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"ZNF580"},{"size":1,"id":"ARNT"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"SERINC3"}],"id":"GO:0051716"},{"children":[{"size":1,"id":"CDKN2B"},{"size":1,"id":"DCTN1"},{"size":1,"id":"CEP164"},{"size":1,"id":"CDK14"},{"size":1,"id":"POLE"},{"size":1,"id":"SIRT2"}],"id":"GO:0044772"},{"children":[{"size":1,"id":"GALNS"},{"size":1,"id":"DYNC1LI1"},{"size":1,"id":"DOK3"},{"size":1,"id":"ROCK1"},{"size":1,"id":"MAPK1"},{"size":1,"id":"AMPD3"}],"id":"GO:0043312"},{"children":[{"children":[{"size":1,"id":"SREBF1"},{"size":1,"id":"STK11"},{"size":1,"id":"ROCK1"},{"size":1,"id":"DAPK3"},{"size":1,"id":"TBC1D25"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"PIP4K2C"},{"size":1,"id":"SIRT2"}],"id":"GO:0006914"},{"children":[{"size":1,"id":"ROCK1"},{"size":1,"id":"SAMSN1"},{"size":1,"id":"PAPSS2"},{"size":1,"id":"STK11"},{"size":1,"id":"RPS6KC1"},{"size":1,"id":"PDGFC"},{"size":1,"id":"STK38L"},{"size":1,"id":"MAPK1"},{"size":1,"id":"TK2"},{"size":1,"id":"RICTOR"},{"size":1,"id":"NBN"},{"size":1,"id":"LGALS9"},{"size":1,"id":"PIP4K2C"},{"size":1,"id":"EPHB4"},{"size":1,"id":"SMAD2"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"UBE2B"},{"size":1,"id":"GLYCTK"},{"size":1,"id":"DAPK3"},{"size":1,"id":"ARNT"},{"size":1,"id":"FRS3"},{"size":1,"id":"SIRT2"},{"size":1,"id":"ARTN"},{"size":1,"id":"TAOK2"},{"size":1,"id":"PIK3C3"},{"size":1,"id":"TOP1"},{"size":1,"id":"CDK14"}],"id":"GO:0016310"},{"children":[{"children":[{"size":1,"id":"TXNL4B"},{"size":1,"id":"CEP164"},{"size":1,"id":"MED15"},{"size":1,"id":"KAT5"},{"size":1,"id":"SIN3B"},{"size":1,"id":"TK2"},{"size":1,"id":"NBN"},{"size":1,"id":"NUDT16"},{"size":1,"id":"ZNF446"},{"size":1,"id":"KPNA2"},{"size":1,"id":"POLE"},{"size":1,"id":"ARHGEF11"},{"size":1,"id":"SREBF1"},{"size":1,"id":"KLF11"},{"size":1,"id":"SAP30BP"},{"size":1,"id":"ZNF282"},{"size":1,"id":"DAPK3"},{"size":1,"id":"ARNT"},{"size":1,"id":"SIRT2"},{"size":1,"id":"PHF20L1"},{"size":1,"id":"PSRC1"},{"size":1,"id":"RRM2B"},{"size":1,"id":"PRKAR1A"},{"size":1,"id":"TOP1"},{"size":1,"id":"ZNF230"},{"size":1,"id":"AP5Z1"},{"size":1,"id":"RLF"},{"size":1,"id":"SUPT6H"},{"size":1,"id":"DPH3"},{"size":1,"id":"ZMAT5"},{"size":1,"id":"MAPK1"},{"size":1,"id":"FLNA"},{"size":1,"id":"SAP18"},{"size":1,"id":"PCBD1"},{"size":1,"id":"ZNF785"},{"size":1,"id":"POLR2J"},{"size":1,"id":"SMAD2"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"UBE2B"},{"size":1,"id":"ZNF580"},{"size":1,"id":"NFYB"},{"size":1,"id":"PHF12"},{"size":1,"id":"SNAI3"},{"size":1,"id":"SWT1"},{"size":1,"id":"PCIF1"},{"size":1,"id":"LILRB4"},{"size":1,"id":"NFKB2"},{"size":1,"id":"AGO3"},{"size":1,"id":"SPIRE1"},{"size":1,"id":"RNF141"}],"id":"GO:0090304"},{"children":[{"children":[{"size":1,"id":"ARNT"},{"size":1,"id":"NUDT16"},{"size":1,"id":"AMPD3"},{"size":1,"id":"PAPSS2"},{"size":1,"id":"SLC25A13"},{"size":1,"id":"TJP2"}],"id":"GO:0009150"},{"size":1,"id":"RRM2B"},{"size":1,"id":"MAPK1"},{"size":1,"id":"TK2"}],"id":"GO:0055086"},{"children":[{"children":[{"children":[{"size":1,"id":"ZNF230"},{"size":1,"id":"RLF"},{"size":1,"id":"SUPT6H"},{"size":1,"id":"MED15"},{"size":1,"id":"KAT5"},{"size":1,"id":"SIN3B"},{"size":1,"id":"FLNA"},{"size":1,"id":"SAP18"},{"size":1,"id":"ZNF446"},{"size":1,"id":"ZNF785"},{"size":1,"id":"POLR2J"},{"size":1,"id":"SMAD2"},{"size":1,"id":"SREBF1"},{"size":1,"id":"KLF11"},{"size":1,"id":"CDKN2B"},{"size":1,"id":"ZNF580"},{"size":1,"id":"ZNF282"},{"size":1,"id":"NFYB"},{"size":1,"id":"PHF12"},{"size":1,"id":"SNAI3"},{"size":1,"id":"ARNT"},{"size":1,"id":"LILRB4"},{"size":1,"id":"SIRT2"},{"size":1,"id":"NFKB2"},{"size":1,"id":"PRKAR1A"}],"id":"GO:0006366"},{"size":1,"id":"MAPK1"},{"size":1,"id":"PCBD1"},{"size":1,"id":"ARHGEF11"},{"size":1,"id":"SAP30BP"},{"size":1,"id":"SWT1"},{"size":1,"id":"DAPK3"},{"size":1,"id":"PHF20L1"},{"size":1,"id":"PSRC1"},{"size":1,"id":"RNF141"}],"id":"GO:0006351"},{"children":[{"size":1,"id":"RRM2B"},{"size":1,"id":"MAPK1"},{"size":1,"id":"TK2"},{"size":1,"id":"AMPD3"},{"size":1,"id":"PAPSS2"},{"size":1,"id":"SLC25A13"}],"id":"GO:0009165"},{"size":1,"id":"NUDT16"},{"size":1,"id":"POLE"}],"id":"GO:0034654"}],"id":"GO:0006139"},{"size":1,"id":"HNMT"},{"size":1,"id":"LAPTM4B"},{"size":1,"id":"GYS1"},{"size":1,"id":"AGTPBP1"},{"size":1,"id":"MSL2"},{"size":1,"id":"SLC25A16"},{"size":1,"id":"BTD"},{"size":1,"id":"SOAT1"},{"size":1,"id":"CES1"},{"size":1,"id":"ABHD4"},{"size":1,"id":"ABHD2"},{"size":1,"id":"SPHAR"},{"size":1,"id":"MVB12B"},{"size":1,"id":"USP25"},{"size":1,"id":"GALNS"},{"size":1,"id":"RNF146"},{"size":1,"id":"PTPRE"},{"size":1,"id":"EXT2"},{"size":1,"id":"NCEH1"},{"size":1,"id":"ADI1"},{"size":1,"id":"ASB6"},{"size":1,"id":"MAP6D1"},{"size":1,"id":"SERINC3"},{"size":1,"id":"BNIPL"}],"id":"GO:0044237"},{"size":1,"id":"WASHC4"},{"size":1,"id":"ITSN1"},{"size":1,"id":"LRMDA"},{"size":1,"id":"PPFIA1"},{"size":1,"id":"SLC39A8"},{"size":1,"id":"STARD8"},{"size":1,"id":"GOLPH3L"},{"size":1,"id":"SLC30A1"},{"size":1,"id":"SELENON"},{"size":1,"id":"TRIP6"},{"size":1,"id":"RGL1"},{"size":1,"id":"INSL3"},{"size":1,"id":"MTRF1L"},{"size":1,"id":"NCKAP5L"}],"id":"GO:0009987"}],"id":"GO:0008150"},"Reduce":0.02,"ModuleID":"M16.2","boolean":true,"AnnotatedGeneSet":["WASHC4","TXNL4B","TBC1D3B","ITSN1","HNMT","TBC1D3G","RABGEF1","LAPTM4B","LRMDA","STK11","KAT5","PPFIA1","TNFRSF8","SLC39A8","LGALS9","NBN","NUDT16","PIP4K2C","ZNF446","KPNA2","EPHB4","SAP30BP","C16orf70","AGTPBP1","ZNF282","STARD8","DAPK3","GOLPH3L","SLC6A12","SLC30A1","FRS3","DYNC1LI1","SELENON","DOK3","BTD","ADAM15","SOAT1","PRKAR1A","TBC1D25","CES1","ABHD4","TTYH2","ABHD2","SPHAR","SUPT6H","SAMSN1","RLF","PDGFC","ZMAT5","DPH3","STK38L","SNX8","ZNF785","RAB11FIP4","SMAD2","UBE2B","PHF12","SNAI3","PCIF1","NFKB2","PTPRE","EXT2","NCEH1","AGO3","ARTN","ADI1","TRIP6","MAP6D1","SPIRE1","SERINC3","RGL1","CDK14","SFXN5","KCNK6","CLIC4","RNPEPL1","CEP164","MED15","GYS1","SIN3B","TK2","INSL3","POLE","ARHGEF11","SREBF1","KLF11","MSL2","ARNT","AMPD3","SIRT2","PHF20L1","SLC25A16","PSRC1","RRM2B","TRAPPC6B","PIK3C3","TOP1","MTRF1L","LUC7L2","SLC25A13","ZNF230","ROCK1","AP5Z1","DCTN1","PAPSS2","SLC25A29","RPS6KC1","MVB12B","MAPK1","FLNA","SAP18","PCBD1","RICTOR","POLR2J","ANKRD50","USP25","CDKN2B","ZNF580","NFYB","GLYCTK","SWT1","NCKAP5L","LILRB4","GALNS","RNF146","SLCO3A1","TAOK2","ASB6","RNF141","TJP2","BNIPL"],"terms":{"GO:0006281":{"parent":["GO:0006974"],"geneSet":["KAT5","UBE2B","RRM2B","AP5Z1","CEP164","SPIRE1","NBN","NUDT16","POLE","POLR2J"],"children":[],"name":"DNA repair","IC":181.91057816366342,"opacity":1.0,"onto":"BP"},"GO:0019538":{"parent":["GO:1901564"],"geneSet":["LAPTM4B","TNFRSF8","SOAT1","FLNA","PCIF1"],"children":["GO:0006508","GO:0030163"],"name":"protein metabolic process","IC":45.4499176967055,"opacity":1.0,"onto":"BP"},"GO:0009150":{"parent":[],"geneSet":["ARNT","NUDT16","AMPD3","PAPSS2","SLC25A13","TJP2"],"children":[],"name":"purine ribonucleotide metabolic process","IC":542.88283351339,"opacity":1.0,"onto":"BP"},"GO:0006260":{"parent":[],"geneSet":["KAT5","RRM2B","NBN","SPHAR","TOP1","POLE"],"children":[],"name":"DNA replication","IC":106.39103611834514,"opacity":1.0,"onto":"BP"},"GO:0015031":{"parent":[],"geneSet":["WASHC4","C16orf70","AP5Z1","TBC1D3B","ITSN1","TBC1D3G","RABGEF1","MVB12B","TAOK2","TBC1D25","SPIRE1","MAPK1","FLNA","KPNA2","SNX8","ANKRD50"],"children":["GO:0009306"],"name":"protein transport","IC":53.520786952638524,"opacity":1.0,"onto":"BP"},"GO:0006464":{"parent":[],"geneSet":["ZNF230","ROCK1","RLF","SAMSN1","SUPT6H","STK11","KAT5","SIN3B","RPS6KC1","DPH3","PDGFC","STK38L","MAPK1","RICTOR","NBN","LGALS9","EPHB4","SMAD2","SREBF1","USP25","AGTPBP1","UBE2B","GLYCTK","DAPK3","MSL2","ARNT","FRS3","SIRT2","RNF146","PTPRE","EXT2","NCEH1","ARTN","TAOK2","ASB6","MAP6D1","PIK3C3","TOP1","CDK14","RNF141"],"children":[],"name":"cellular protein modification process","IC":148.73176668547606,"opacity":1.0,"onto":"BP"},"GO:0006366":{"parent":["GO:0006351"],"geneSet":["ZNF230","RLF","SUPT6H","MED15","KAT5","SIN3B","FLNA","SAP18","ZNF446","ZNF785","POLR2J","SMAD2","SREBF1","KLF11","CDKN2B","ZNF580","ZNF282","NFYB","PHF12","SNAI3","ARNT","LILRB4","SIRT2","NFKB2","PRKAR1A"],"children":[],"name":"transcription by RNA polymerase II","IC":590.2042174042049,"opacity":1.0,"onto":"BP"},"GO:0044255":{"parent":["GO:0044237","GO:0006629"],"geneSet":["SREBF1","SOAT1","ABHD4","ABHD2","PIK3C3","PIP4K2C","SERINC3","SIRT2","CES1"],"children":[],"name":"cellular lipid metabolic process","IC":38.548677098744555,"opacity":1.0,"onto":"BP"},"GO:0044772":{"parent":[],"geneSet":["CDKN2B","DCTN1","CEP164","CDK14","POLE","SIRT2"],"children":[],"name":"mitotic cell cycle phase transition","IC":28.44241449636777,"opacity":1.0,"onto":"BP"},"GO:1901564":{"parent":["GO:0071704"],"geneSet":["HNMT","TK2","AMPD3","BTD","SLC25A13","ABHD4","PAPSS2","PCBD1","GALNS","ADI1","SERINC3","TJP2"],"children":["GO:0019538"],"name":"organonitrogen compound metabolic process","IC":19.751594521719454,"opacity":1.0,"onto":"BP"},"GO:0006887":{"parent":[],"geneSet":["GALNS","DYNC1LI1","DOK3","ROCK1","ITSN1","MAPK1","FLNA","LGALS9","AMPD3"],"children":[],"name":"exocytosis","IC":36.478582086684014,"opacity":1.0,"onto":"BP"},"GO:0044237":{"parent":["GO:0009987","GO:0008152"],"geneSet":["HNMT","LAPTM4B","GYS1","AGTPBP1","MSL2","SLC25A16","BTD","SOAT1","CES1","ABHD4","ABHD2","SPHAR","MVB12B","USP25","GALNS","RNF146","PTPRE","EXT2","NCEH1","ADI1","ASB6","MAP6D1","SERINC3","BNIPL"],"children":["GO:0044255"],"name":"cellular metabolic process","IC":13.96080067007362,"opacity":1.0,"onto":"BP"},"GO:0050794":{"parent":["GO:0050789"],"geneSet":["DYNC1LI1","DPH3","SPIRE1"],"children":["GO:0007165"],"name":"regulation of cellular process","IC":7.962415680121065,"opacity":1.0,"onto":"BP"},"GO:0071310":{"parent":[],"geneSet":["SREBF1","KLF11","NFYB","DAPK3","SIRT2","KAT5","ADAM15","PRKAR1A","PDGFC","MAPK1","LGALS9","CES1"],"children":[],"name":"cellular response to organic substance","IC":41.62401228321868,"opacity":1.0,"onto":"BP"},"GO:0006914":{"parent":[],"geneSet":["SREBF1","STK11","ROCK1","DAPK3","TBC1D25","PIK3C3","PIP4K2C","SIRT2"],"children":[],"name":"autophagy","IC":38.08899043646975,"opacity":1.0,"onto":"BP"},"GO:0032147":{"parent":[],"geneSet":["STK11","PRKAR1A","PDGFC","TAOK2","MAPK1","RICTOR"],"children":[],"name":"activation of protein kinase activity","IC":1099.0938998699316,"opacity":1.0,"onto":"BP"},"GO:0016310":{"parent":[],"geneSet":["ROCK1","SAMSN1","PAPSS2","STK11","RPS6KC1","PDGFC","STK38L","MAPK1","TK2","RICTOR","NBN","LGALS9","PIP4K2C","EPHB4","SMAD2","CDKN2B","UBE2B","GLYCTK","DAPK3","ARNT","FRS3","SIRT2","ARTN","TAOK2","PIK3C3","TOP1","CDK14"],"children":[],"name":"phosphorylation","IC":24.482927350994633,"opacity":1.0,"onto":"BP"},"GO:0090304":{"parent":["GO:0006139"],"geneSet":["TXNL4B","CEP164","MED15","KAT5","SIN3B","TK2","NBN","NUDT16","ZNF446","KPNA2","POLE","ARHGEF11","SREBF1","KLF11","SAP30BP","ZNF282","DAPK3","ARNT","SIRT2","PHF20L1","PSRC1","RRM2B","PRKAR1A","TOP1","ZNF230","AP5Z1","RLF","SUPT6H","DPH3","ZMAT5","MAPK1","FLNA","SAP18","PCBD1","ZNF785","POLR2J","SMAD2","CDKN2B","UBE2B","ZNF580","NFYB","PHF12","SNAI3","SWT1","PCIF1","LILRB4","NFKB2","AGO3","SPIRE1","RNF141"],"children":[],"name":"nucleic acid metabolic process","IC":112.39856833655074,"opacity":1.0,"onto":"BP"},"GO:0008150":{"parent":"GO","geneSet":[],"children":["GO:0008152","GO:0009987","GO:0051179"],"name":"biological_process","IC":0.0,"opacity":1.0,"onto":"BP"},"GO:0055086":{"parent":["GO:0006139"],"geneSet":["RRM2B","MAPK1","TK2"],"children":[],"name":"nucleobase-containing small molecule metabolic process","IC":108.87958791923222,"opacity":1.0,"onto":"BP"},"GO:0065003":{"parent":[],"geneSet":["SMAD2","DCTN1","SIRT2","PSRC1","KAT5","SOAT1","AGO3","TRAPPC6B","PDGFC","PCBD1","RICTOR","LUC7L2"],"children":[],"name":"protein-containing complex assembly","IC":36.453460222660375,"opacity":1.0,"onto":"BP"},"GO:0007165":{"parent":["GO:0009987","GO:0050794"],"geneSet":["ITSN1","STK11","KAT5","PPFIA1","TNFRSF8","NBN","LGALS9","PIP4K2C","KPNA2","INSL3","EPHB4","ARHGEF11","SREBF1","STARD8","DAPK3","ARNT","FRS3","SIRT2","DOK3","ADAM15","RRM2B","PRKAR1A","PIK3C3","CES1","ROCK1","DCTN1","ABHD2","RLF","RPS6KC1","PDGFC","MVB12B","STK38L","MAPK1","FLNA","RICTOR","POLR2J","SMAD2","CDKN2B","UBE2B","LILRB4","NFKB2","RNF146","PTPRE","EXT2","NCEH1","AGO3","ARTN","TRIP6","TAOK2","ASB6","RGL1","SERINC3","CDK14","TJP2"],"children":[],"name":"signal transduction","IC":19.397487705886434,"opacity":1.0,"onto":"BP"},"GO:0006351":{"parent":[],"geneSet":["MAPK1","PCBD1","ARHGEF11","SAP30BP","SWT1","DAPK3","PHF20L1","PSRC1","RNF141"],"children":["GO:0006366"],"name":"transcription, DNA-templated","IC":587.7193107544168,"opacity":1.0,"onto":"BP"},"GO:0046907":{"parent":["GO:0006810"],"geneSet":["WASHC4","AP5Z1","TBC1D3B","DCTN1","SUPT6H","TBC1D3G","LAPTM4B","RABGEF1","MVB12B","MAPK1","FLNA","LGALS9","KPNA2","SNX8","ANKRD50","RAB11FIP4","SREBF1","DYNC1LI1","TRAPPC6B","TAOK2","TBC1D25","MAP6D1","SPIRE1","PIK3C3"],"children":[],"name":"intracellular transport","IC":28.973465015625457,"opacity":1.0,"onto":"BP"},"GO:0034220":{"parent":[],"geneSet":["KCNK6","CLIC4","SLC25A29","TTYH2","SLC6A12","FLNA","SLC39A8","SLC30A1","SFXN5","SLC25A13"],"children":[],"name":"ion transmembrane transport","IC":25.65841987598286,"opacity":1.0,"onto":"BP"},"GO:0030163":{"parent":["GO:0019538"],"geneSet":["LAPTM4B","USP25","KAT5","UBE2B","FLNA","SIRT2"],"children":[],"name":"protein catabolic process","IC":137.23224329650802,"opacity":1.0,"onto":"BP"},"GO:0009165":{"parent":[],"geneSet":["RRM2B","MAPK1","TK2","AMPD3","PAPSS2","SLC25A13"],"children":[],"name":"nucleotide biosynthetic process","IC":732.3669899335772,"opacity":1.0,"onto":"BP"},"GO:0008152":{"parent":["GO:0008150"],"geneSet":["TBC1D25","SLC25A16"],"children":["GO:0071704","GO:0044237"],"name":"metabolic process","IC":3.3672958299864746,"opacity":1.0,"onto":"BP"},"GO":{"geneSet":[],"children":["GO:0008150"],"name":"Gene Ontology","IC":0,"opacity":1.0},"GO:0006355":{"parent":[],"geneSet":["SMAD2","KLF11","TNFRSF8","ARNT","LGALS9","SIRT2","NFKB2"],"children":[],"name":"regulation of transcription, DNA-templated","IC":248.5149257827004,"opacity":1.0,"onto":"BP"},"GO:0043312":{"parent":[],"geneSet":["GALNS","DYNC1LI1","DOK3","ROCK1","MAPK1","AMPD3"],"children":[],"name":"neutrophil degranulation","IC":132.1262589075206,"opacity":1.0,"onto":"BP"},"GO:0006974":{"parent":[],"geneSet":["STK11","TAOK2","MAPK1"],"children":["GO:0006281"],"name":"cellular response to DNA damage stimulus","IC":29.0088388356214,"opacity":1.0,"onto":"BP"},"GO:0009306":{"parent":["GO:0015031"],"geneSet":["SMAD2","SREBF1","DPH3","GOLPH3L","PIK3C3","LGALS9"],"children":[],"name":"protein secretion","IC":128.15309123513362,"opacity":1.0,"onto":"BP"},"GO:0006810":{"parent":["GO:0051234"],"geneSet":["DCTN1","SUPT6H","LAPTM4B","PPFIA1","RAB11FIP4","SOAT1","SLCO3A1","TRAPPC6B","MAP6D1","TJP2"],"children":["GO:0046907"],"name":"transport","IC":7.173958319756794,"opacity":1.0,"onto":"BP"},"GO:0006139":{"parent":[],"geneSet":[],"children":["GO:0034654","GO:0090304","GO:0055086"],"name":"nucleobase-containing compound metabolic process","IC":97.35177384176824,"opacity":1.0,"onto":"BP"},"GO:0009987":{"parent":["GO:0008150"],"geneSet":["WASHC4","ITSN1","LRMDA","PPFIA1","SLC39A8","STARD8","GOLPH3L","SLC30A1","SELENON","TRIP6","RGL1","INSL3","MTRF1L","NCKAP5L"],"children":["GO:0051716","GO:0007165","GO:0044237"],"name":"cellular process","IC":3.3672958299864746,"opacity":1.0,"onto":"BP"},"GO:0006511":{"parent":[],"geneSet":["RNF146","USP25","KAT5","UBE2B","MVB12B","SIRT2"],"children":[],"name":"ubiquitin-dependent protein catabolic process","IC":158.32380374042867,"opacity":1.0,"onto":"BP"},"GO:0051234":{"parent":["GO:0051179"],"geneSet":["PSRC1","UBE2B"],"children":["GO:0006810"],"name":"establishment of localization","IC":5.564520407322695,"opacity":1.0,"onto":"BP"},"GO:0051179":{"parent":["GO:0008150"],"geneSet":["CEP164"],"children":["GO:0051234"],"name":"localization","IC":3.3672958299864746,"opacity":1.0,"onto":"BP"},"GO:0006508":{"parent":["GO:0019538"],"geneSet":["SMAD2","USP25","AGTPBP1","UBE2B","RNPEPL1","ROCK1","SIRT2","RNF146","KAT5","ADAM15","MVB12B","PIK3C3","NUDT16","CES1"],"children":[],"name":"proteolysis","IC":48.44564997025949,"opacity":1.0,"onto":"BP"},"GO:0006629":{"parent":["GO:0071704"],"geneSet":["NFYB","NCEH1","SIN3B","RGL1"],"children":["GO:0044255"],"name":"lipid metabolic process","IC":18.770765268707727,"opacity":1.0,"onto":"BP"},"GO:0051716":{"parent":["GO:0009987"],"geneSet":["CLIC4","DCTN1","TNFRSF8","USP25","CDKN2B","ZNF580","ARNT","PIK3C3","SERINC3"],"children":[],"name":"cellular response to stimulus","IC":13.514513567445201,"opacity":1.0,"onto":"BP"},"GO:0034654":{"parent":["GO:0006139"],"geneSet":["NUDT16","POLE"],"children":[],"name":"nucleobase-containing compound biosynthetic process","IC":320.43067900108514,"opacity":1.0,"onto":"BP"},"GO:0010243":{"parent":[],"geneSet":["SREBF1","KLF11","USP25","RRM2B","ROCK1","PRKAR1A","PDGFC","MAPK1","PIK3C3","HNMT","SIRT2"],"children":[],"name":"response to organonitrogen compound","IC":25.348697949285743,"opacity":1.0,"onto":"BP"},"GO:0071704":{"parent":["GO:0008152"],"geneSet":["TXNL4B","PIP4K2C","ZNF446","KPNA2","SAP30BP","ZNF282","PRKAR1A","ABHD2","ZMAT5","ZNF785","PHF12","SNAI3","NFKB2","AGO3","SPIRE1","RGL1","CEP164","MED15","GYS1","ARHGEF11","KLF11","PHF20L1","PSRC1","AP5Z1","SAP18","POLR2J","CDKN2B","ZNF580","NFYB","SWT1","LILRB4","BNIPL"],"children":["GO:1901564","GO:0006629"],"name":"organic substance metabolic process","IC":6.586171654854676,"opacity":1.0,"onto":"BP"},"GO:0050789":{"parent":[],"geneSet":["KCNK6","NUDT16","TOP1"],"children":["GO:0050794"],"name":"regulation of biological process","IC":4.465908118654585,"opacity":1.0,"onto":"BP"},"GO:0034613":{"parent":[],"geneSet":["SREBF1","C16orf70","ROCK1","ITSN1","GOLPH3L","LILRB4","RABGEF1","STK11","TAOK2","PPFIA1","MAPK1","FLNA","PIK3C3","KPNA2"],"children":[],"name":"cellular protein localization","IC":26.517356005594962,"opacity":1.0,"onto":"BP"}},"GeneSet":["WASHC4","SLC4A1AP","TXNL4B","FAM89A","TBC1D3B","ITSN1","NRM","HNMT","TBC1D3G","CYB5D1","LOC158830","LRMDA","LAPTM4B","RABGEF1","STK11","LOC729764","KAT5","EVA1B","PPFIA1","TNFRSF8","SLC39A8","NBN","LGALS9","NUDT16","PIP4K2C","ZNF446","MB21D2","KPNA2","EPHB4","SAP30BP","AGTPBP1","C16orf70","ZNF282","STARD8","DAPK3","GOLPH3L","EPDR1","SLC6A12","SLC30A1","MFSD12","FRS3","DYNC1LI1","SELENON","BTD","DOK3","ADAM15","SOAT1","PRKAR1A","TBC1D25","BCORL1","CES1","KLHL18","ABHD4","TTYH2","ABHD2","SPHAR","RLF","SAMSN1","SUPT6H","LOC649422","DPH3","PDGFC","ZMAT5","STK38L","SNX8","ZNF785","RAB11FIP4","SMAD2","CCZ1B","UBE2B","PHF12","SNAI3","PCIF1","HS.240801","NFKB2","PTPRE","EXT2","TMEM234","EXT3","NCEH1","LOC81691","AGO3","ARTN","ADI1","TRIP6","HS.336370","MAP6D1","SPIRE1","NIT1","RGL1","SERINC3","CDK14","SFXN5","KCNK6","CLIC4","RNPEPL1","SLC35F5","CEP164","TMEM51","ABCC10","MED15","GYS1","SIN3B","TK2","INSL3","POLE","ARHGEF11","ZCCHC24","HS.293676","SREBF1","KLF11","MSL2","ARNT","FAM219A","AMPD3","SIRT2","PHF20L1","SLC25A16","PSRC1","RRM2B","TRAPPC6B","PIK3C3","TOP1","MTRF1L","LUC7L2","SLC25A13","LOC284837","ZNF230","AP5Z1","ROCK1","DCTN1","HS.548831","HS.535044","PAPSS2","SLC25A29","RPS6KC1","MVB12B","MAPK1","FLNA","SAP18","PCBD1","RICTOR","ANKRD50","POLR2J","USP25","CDKN2B","ZNF580","NFYB","SWT1","GLYCTK","NCKAP5L","LOC644677","LILRB4","GALNS","RNF146","RSPH3","HS.12876","SLCO3A1","C2orf76","TAOK2","ASB6","RNF141","BNIPL","SNTB2","TJP2"],"representatives":["GO:0006281","GO:0009150","GO:0006260","GO:0006464","GO:0006366","GO:0044255","GO:0044772","GO:0071310","GO:0006914","GO:0032147","GO:0016310","GO:0065003","GO:0007165","GO:0046907","GO:0034220","GO:0030163","GO:0009165","GO:0006355","GO:0043312","GO:0009306","GO:0006511","GO:0010243","GO:0034613"]}
+
+draw(dataJSOn);
+
+function draw(data) {
+
+
+			visual(data);
+     	document.getElementById("defaultOpen").click();
+}
+
+			$(".btnJSON").click(function() {
+				var a = document.createElement("a");
+				document.body.appendChild(a);
+				a.style = "display: none";
+				var json = JSON.stringify(jobj), blob = new Blob([ json ], {
+					type : "application/json"
+				}), url = window.URL.createObjectURL(blob);
+				a.href = url;
+				a.download = "GSAn_result.json";
+				a.click();
+				window.URL.revokeObjectURL(url);
+			});
+
+			$(".btnCsv").click(function() {
+				var data, filename, link;
+				var csv = convertArrayOfObjectsToCSV(jobj);
+				if (csv == null)
+					return;
+
+				filename = 'GSAn_result.csv';
+
+				if (!csv.match(/^data:text\/csv/i)) {
+					csv = 'data:text/csv;charset=utf-8,' + csv;
+				}
+				data = encodeURI(csv);
+
+				link = document.createElement('a');
+				document.body.appendChild(link);
+				link.style = "display: none";
+				link.setAttribute('href', data);
+				link.setAttribute('download', filename);
+				link.click();
+			});
+
+      $("#save_as_svg").click(function() { submit_download_form("svg"); });
+      $("#save_as_pdf").click(function() { submit_download_form("pdf"); });
+      $("#save_as_png").click(function() { submit_download_form("png"); });
+
+      function submit_download_form(output_format)
+      {
+      	// Get the d3js SVG element
+      	var tmp = document.getElementById("ex1");
+      	var svg = tmp.getElementsByTagName("svg")[0];
+      	// Extract the data as SVG text string
+      	var svg_xml = (new XMLSerializer).serializeToString(svg);
+      	// Submit the <FORM> to the server.
+      	// The result will be an attachment file to download.
+      	var form = document.getElementById("svgform");
+      	form['output_format'].value = output_format;
+      	form['data'].value = svg_xml ;
+      	form.submit();
+      }
+			function convertArrayOfObjectsToCSV(data) {
+				var result, ctr, keys, columnDelimiter, lineDelimiter;
+
+				var genes = data.GeneSet;
+				var representative = data.representatives;
+				var scp = data.scp;
+				var dic = data.terms;
+
+				var h = ["GOID","Name","Ontology","IC","Covered_genes","Synthetic", "Genes" ], r = [];
+				representative.forEach(function(x) {
+					//console.log(dic[x]);
+					var cells = {};
+					cells[h[0]] = x;
+					cells[h[1]] = '"' + dic[x].name + '"';
+					cells[h[2]] = dic[x].onto;
+					cells[h[3]] = Math.floor(dic[x].IC * 100) / 100;
+					cells[h[4]] = dic[x].geneSet.length;
+					if (scp.includes(x)) {
+						cells[h[5]] = true;
+					} else {
+						cells[h[5]] = false;
+					}
+
+					cells[h[6]] = dic[x].geneSet.join(";");
+					r.push(cells);
+				});
+
+				columnDelimiter = ',';
+				lineDelimiter = '\n';
+
+				keys = Object.keys(r[0]);
+
+				result = '';
+				result += keys.join(columnDelimiter);
+				result += lineDelimiter;
+
+				r.forEach(function(item) {
+					ctr = 0;
+					keys.forEach(function(key) {
+						if (ctr > 0)
+							result += columnDelimiter;
+
+						result += item[key];
+						ctr++;
+					});
+					result += lineDelimiter;
+				});
+
+				return result;
+			}
+
+
+			function openCity(chooseCont, elmnt, color) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("table-container");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablink");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].style.backgroundColor = "";
+				}
+				document.getElementById(chooseCont).style.display = "block";
+				elmnt.style.backgroundColor = color;
+
+			}
+			// Get the element with id="defaultOpen" and click on it
+
+
+		</script>
+	</div>
+
+</body>
+</html>
