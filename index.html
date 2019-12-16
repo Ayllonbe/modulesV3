@@ -82,26 +82,6 @@
     <div class="col-xs-12 w-100 p-3" style="padding-right: 10px;">
     					<div class="table-container w-100 p-3" id="tableResult">
 
-    						<script>
-    							$(document).ready(
-    									function() {
-    										var table = $('#tableMod').DataTable({
-                          "ordering":false,
-                          "bDestroy": true,
-   "deferRender": true,
-   "columnDefs": [
-      {
-        "targets": 4,
-        "data": null,
-        "render": function ( data, type, row, meta ) {
-     return '<a href="modules_results_html/'+data[0]+'.json.html">link</a>';
-   }
-         }
-   ]
-                        });
-    										table.draw();
-    									});
-    						</script>
     </div>
 </div>
 
@@ -119,7 +99,7 @@
         cells.push(x["Module functional association title"]);
         cells.push(x["Number of unique genes"]);
         cells.push("-");
-        cells.push("link");
+        cells.push(x["Module ID"]);
 
       r.push(cells);
       })
@@ -132,7 +112,25 @@
           .setData(r)
           .setTableClass('table table-striped table-bordered')
           .setTableID('tableMod')
-          .build()
+          .build();
+
+          $(document).ready(
+              function() {
+                var table = $('#tableMod').DataTable({
+                  "ordering":false,
+                  "bDestroy": true,
+"deferRender": true,
+"columnDefs": [
+{
+"targets": 4,
+"render": function ( data, type, row, meta ) {
+return '<a href="modules_results_html/'+data+'.json.html">link</a>';
+}
+ }
+]
+                });
+                table.draw();
+              });
     });
 
 
