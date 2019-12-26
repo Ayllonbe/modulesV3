@@ -20,6 +20,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
   <script  type="text/javascript" src="dist/js/d3.v4.min.js"></script>
     <script type="text/javascript" src="dist/js/table.js"></script>
+    <script  type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
     <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -28,6 +30,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+
     <title>ModulesV3</title>
     <style>
     .bd-placeholder-img {
@@ -88,7 +93,7 @@
     <script inline="javascript">
 
 
-    var h = ["Module ID","Annotation","Number of unique genes","GSAn results","Genes"]
+    var h = ["Module ID","Annotation","Number of unique genes","GSAn results","Genes"," "]
     var r = [];
     d3.csv("./modulesV3.csv",function(error, data) {  if (error) throw error;
       console.log(data);
@@ -100,6 +105,7 @@
         cells.push(x["Number of unique genes"]);
         cells.push(x["Module ID"]);
           cells.push(x["Illumina Probe IDs"]);
+          cells.push(x[" "]);
 
       r.push(cells);
       })
@@ -120,7 +126,18 @@
                   "ordering":false,
                   "bDestroy": true,
                   "deferRender": true,
+                  "responsive": {
+                    "details": {
+                      "type": 'column',
+                      "target": 'tr'
+                    }
+                  },
                   "columnDefs": [
+                    {
+                      "className": 'control',
+                      "orderable": false,
+                      "targets":   5
+                    } ,
                     {
                       "targets": 3,
                       "render": function ( data, type, row, meta ) {
