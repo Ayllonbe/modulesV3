@@ -85,40 +85,7 @@
     <div class="col-xs-12 w-100 p-3" style="padding-right: 10px;">
     					<div class="table-container w-100 p-3" id="tableResult">
 
-    						<script>
-    							$(document).ready(
-    									function() {
-    										var table = $('#tableMod').DataTable({
-                          "ordering":false,
-                          "bDestroy": true,
-   "deferRender": true,
-   "responsive": {
-		        "details": {
-		            "type": 'column',
-		            "target": 'tr'
-		        }
-		    },
-   "columnDefs": [
-
-     {
-                "className": 'control',
-                "orderable": false,
-                "targets":   6
-            } ,
-      {
-        "targets": 3,
-        "data": null,
-   "render": function ( data, type, row, meta ) {
-     return '<a href="modules_results_html/'+data[0]+'.json.html">link</a>';
-   }
- }
-
-
-   ]
-                        });
-    										table.draw();
-    									});
-    						</script>
+    					
     </div>
 </div>
 
@@ -153,6 +120,38 @@
           .setTableID('tableMod')
           .build()
     });
+
+    $(document).ready(
+      function() {
+        var table = $('#tableMod').DataTable({
+          "ordering":false,
+          "bDestroy": true,
+"deferRender": true,
+"responsive": {
+"details": {
+"type": 'column',
+"target": 'tr'
+}
+},
+"columnDefs": [
+
+{
+"className": 'control',
+"orderable": false,
+"targets":   6
+} ,
+{
+"targets": 3,
+"data": null,
+"render": function ( data, type, row, meta ) {
+return '<a href="modules_results_html/'+data[0]+'.json.html">link</a>';
+}
+}
+
+
+]
+        });
+  });
 
 
     </script>
