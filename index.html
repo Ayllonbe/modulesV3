@@ -93,7 +93,7 @@
     <script inline="javascript">
 
 
-    var h = ["Module ID","Annotation","Number of unique genes","GSAn results","Genes"," "]
+    var h = ["Module ID","Annotation","Number of unique genes","GSAn results","Illumina","Genes"," "]
     var r = [];
     d3.csv("./modulesV3.csv",function(error, data) {  if (error) throw error;
       console.log(data);
@@ -105,6 +105,7 @@
         cells.push(x["Number of unique genes"]);
         cells.push(x["Module ID"]);
           cells.push(x["Illumina Probe IDs"]);
+          cells.push(x["Symbols of member genes"]);
           cells.push(x[" "]);
 
       r.push(cells);
@@ -136,7 +137,7 @@
                     {
                       "className": 'control',
                       "orderable": false,
-                      "targets":   5
+                      "targets":   6
                     } ,
                     {
                       "targets": 3,
