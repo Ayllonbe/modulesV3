@@ -40,18 +40,27 @@ Table.prototype.build = function(container) {
     var table = $('<table id="' +this.tableID +'" class="'+this.tableClass+'"></table>').addClass(this.tableClass)
 
     var tr = $('<tr></tr>') //creates row
-    var th = $('<th></th>') //creates table header cells
+    var th = $('<th class="all"></th>') //creates table header cells
+    var thN = $('<th class="none"></th>') //creates table header cells
     var td = $('<td></td>') //creates table cells
 
     var header = tr.clone() //creates header row
 
     //fills header row
     this.header.forEach(function(d) {
-    	var thClone = th.clone();
-    	thClone.text(d);
-    	
-        header.append(thClone);
-       
+
+        if(d==="Genes" || d==="Illumina"){
+            var thClone = thN.clone();
+        	thClone.text(d);
+            header.append(thClone);
+        }else{
+            var thClone = th.clone();
+        	thClone.text(d);
+            header.append(thClone);
+        }
+
+
+
     })
 
     //attaches header row
@@ -73,7 +82,3 @@ Table.prototype.build = function(container) {
 
     return this
 }
-
-
-
-
